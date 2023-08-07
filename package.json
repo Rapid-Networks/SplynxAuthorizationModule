@@ -1,0 +1,39 @@
+{
+  "name": "splynx_auth_ms",
+  "version": "1.0.0",
+  "description": "Authentication Microservice for working with splynx in all Rapid Networks Projects",
+  "homepage": "https://github.com/Rapid-Networks/Splynx_Authentication#README",
+  "bugs": {
+    "url": "https://github.com/Rapid-Networks/Splynx_Authentication/issues",
+    "email": "armin@rapidnetworks.co.za"
+  },
+  "license": "GPL-3.0-only",
+  "author": "Armin <armin@rapidnetworks.co.za>",
+  "main": "index.js",
+  "man": [
+    "./docs/splynxauth.1"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rapid-Networks/Splynx_Authentication.git"
+  },
+  "scripts": {},
+  "config": {},
+  "dependencies": {
+    "fastify": "4.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.4.8",
+    "@typescript-eslint/eslint-plugin": "6.2.1",
+    "@typescript-eslint/parser": "6.2.1",
+    "eslint": "8.46.0",
+    "eslint-config-prettier": "9.0.0",
+    "prettier": "3.0.1",
+    "typescript": "5.1.6"
+  },
+  "engines": {
+    "node": "18.17.0"
+  },
+  "private": true,
+  "type": "module"
+}
