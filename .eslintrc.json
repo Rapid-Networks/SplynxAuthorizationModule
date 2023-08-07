@@ -18,5 +18,7 @@
     "plugin:node/recommended",
     "plugin:security/recommended"
   ],
-  "rules": {}
+  "rules": {
+    "no-throw-literal": "warn"
+  }
 }
