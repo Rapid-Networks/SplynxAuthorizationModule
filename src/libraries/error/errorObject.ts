@@ -16,6 +16,10 @@ enum HttpCode {
 /*As recommended from:
    https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/useonlythebuiltinerror.md
 */
+/**
+ * Custom application error class
+ * @extends Error
+ */
 export class AppError extends Error {
   public readonly name: string;
   public readonly httpCode: HttpCode;
