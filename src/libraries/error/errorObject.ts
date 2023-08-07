@@ -13,8 +13,8 @@ enum HttpCode {
   NETWORK_AUTHENTICATION_REQUIRED = 511,
 }
 
-/* As recommended from:
-    https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/useonlythebuiltinerror.md
+/*As recommended from:
+   https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/useonlythebuiltinerror.md
 */
 export class AppError extends Error {
   public readonly name: string;
@@ -36,6 +36,10 @@ export class AppError extends Error {
     this.name = name;
     this.httpCode = httpCode;
     this.isOperational = isOperational;
+    /*As explained on :
+      https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/operationalvsprogrammererror.md
+        Operational errors refer to situations where you understand what happened and the impact of it
+    */
 
     Error.captureStackTrace(this);
   }
