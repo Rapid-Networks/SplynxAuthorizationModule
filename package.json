@@ -28,6 +28,8 @@
     "@typescript-eslint/parser": "6.2.1",
     "eslint": "8.46.0",
     "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-security": "1.7.1",
     "prettier": "3.0.1",
     "typescript": "5.1.6"
   },
