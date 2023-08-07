@@ -1,3 +1,7 @@
+# Styleguide
+
+> law for thee but not for me
+
 - Global variables:
   `const`/`let` keyword and `UPPER_SNAKE_CASE`
   _example:_
