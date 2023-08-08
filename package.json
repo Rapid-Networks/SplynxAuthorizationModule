@@ -17,7 +17,10 @@
     "type": "git",
     "url": "https://github.com/Rapid-Networks/Splynx_Authentication.git"
   },
-  "scripts": {},
+  "scripts": {
+    "compile": "yarn tsc --watch",
+    "dev": "nodemon node dist/index.js"
+  },
   "config": {},
   "dependencies": {
     "convict": "6.2.4",

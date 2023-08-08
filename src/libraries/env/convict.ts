@@ -1,5 +1,4 @@
 import convict from 'convict';
-
 // Schema
 export const config = convict({
   env: {

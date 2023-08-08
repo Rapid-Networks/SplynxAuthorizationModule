@@ -2,7 +2,7 @@
 import { config } from './env/convict.js';
 import { AppError } from './error/errorObject.js';
 
-export function loadEnvironment() {
+export function validateEnvironment() {
   // Loading Config
   try {
     const env = config.get('env');
