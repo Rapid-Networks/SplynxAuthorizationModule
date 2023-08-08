@@ -1,7 +1,9 @@
 import { createClient } from 'redis';
 
 // @todo - add environment specific addresses
-const dbClient = createClient();
+const dbClient = createClient({
+  url: 'redis://@localhost:6379',
+});
 
 // Event Handles
 dbClient.on('error', (error: Error) => {

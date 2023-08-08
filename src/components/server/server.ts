@@ -30,6 +30,14 @@ export function initializeServer(environment: string): Fastify.FastifyInstance {
     reply.send('raw token data').code(200);
   });
 
+  fastify.get('/authentication/permissions', async (_request, reply) => {
+    reply.send('permissions').code(200);
+  });
+
+  fastify.get('/logs', async (_request, reply) => {
+    reply.send('logs endpoint').code(200);
+  });
+
   // running server
   fastify.listen({ port: config.get('port') }, (error, _address) => {
     if (error) throw new Error();

@@ -1,10 +1,6 @@
 import generateSignature from '../../libraries/helpers/generateSignature.js';
 import fetch from 'node-fetch';
-import { config } from '../../libraries/env/convict.js';
-
-const KEY = '';
-const SECRET = ''; //for testing
-const URL = `${config.get('splynx.url')}/auth/tokens`;
+import dbClient from '../db/redis.js';
 
 type AuthenticationToken = {
   access_token: string;
@@ -14,16 +10,20 @@ type AuthenticationToken = {
   permissions: [Record<string, Record<string, string>>];
 };
 
-const fetchData = async (): Promise<AuthenticationToken> => {
-  const signature = generateSignature(KEY, SECRET);
-  const response = await fetch(URL, {
+const fetchSplynxData = async (
+  api_key: string,
+  api_secret: string,
+  url: string,
+): Promise<AuthenticationToken> => {
+  const signature = generateSignature(api_key, api_secret);
+  const response = await fetch(url, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       auth_type: 'api_key',
-      key: KEY,
+      key: api_key,
       signature: signature.signature,
       nonce: signature.signature_nonce,
     }),
@@ -32,11 +32,24 @@ const fetchData = async (): Promise<AuthenticationToken> => {
   return (await response.json()) as AuthenticationToken;
 };
 
-/**
- * Requests Splynx API for a new authentication token with a default lifetime of 30 minutes and store data in database
- */
-async function getNewToken(): Promise<void> {
-  console.log(await fetchData());
-}
+// generate header and queue database calls
+export async function generateNewToken(
+  api_key: string,
+  api_secret: string,
+  url: string,
+): Promise<void> {
+  const data = await fetchSplynxData(api_key, api_secret, url);
+  const header = `Splynx-EA (access_token=${data.access_token})`;
 
-await getNewToken();
+  await dbClient
+    .multi()
+    .hSet('header:1', ['Authorization', header])
+    .hSet('token:1', {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+      access_expiry: data.access_token_expiration,
+      refresh_expiry: data.refresh_token_expiration,
+    })
+    .exec()
+    .then(async () => await dbClient.quit());
+}
