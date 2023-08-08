@@ -1,5 +1,5 @@
 import Fastify from 'fastify';
-import { AppError } from '../../libraries/error/errorObject.js';
+import { NetworkAppError } from '../../libraries/error/errorObject.js';
 import { config } from '../../libraries/env/convict.js';
 
 const ENV = config.get('env');
@@ -30,5 +30,5 @@ fastify.get('/', async (request, reply) => {
 
 // running server
 fastify.listen({ port: config.get('port') }, (error, address) => {
-  if (error) throw new AppError(error.name, error.message, false);
+  if (error) throw new Error();
 });

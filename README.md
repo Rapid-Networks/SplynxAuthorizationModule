@@ -9,3 +9,6 @@ _This project uses:_
 - Typescript
 - Redis
 - Docker
+
+command flags:
+--env: set environment between production, development, testing. defaults to development

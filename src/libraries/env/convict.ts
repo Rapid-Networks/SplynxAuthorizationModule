@@ -7,6 +7,7 @@ export const config = convict({
     format: ['production', 'development', 'test'],
     default: 'development',
     env: 'NODE_ENV',
+    arg: 'env',
   },
   ip: {
     doc: 'Binding IP address',
@@ -17,7 +18,7 @@ export const config = convict({
   port: {
     doc: 'Binding port',
     format: 'port',
-    default: 5000,
+    default: 3000,
     env: 'PORT',
     arg: 'port',
   },
@@ -59,10 +60,3 @@ export const config = convict({
     },
   },
 });
-
-// Environment dependant config
-const env = config.get('env');
-config.loadFile(`./config/${env}.json`);
-
-// Validation
-config.validate({ allowed: 'strict' });

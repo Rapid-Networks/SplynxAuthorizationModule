@@ -1,10 +1,9 @@
 import generateSignature from '../../libraries/helpers/generateSignature.js';
 import fetch from 'node-fetch';
 import { config } from '../../libraries/env/convict.js';
-import { AppError } from '../../libraries/error/errorObject.js';
 
-const KEY = config.get('splynx.key');
-const SECRET = config.get('splynx.secret');
+const KEY = '';
+const SECRET = ''; //for testing
 const URL = `${config.get('splynx.url')}/auth/tokens`;
 
 type AuthenticationToken = {

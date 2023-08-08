@@ -1,12 +1,12 @@
 import { createClient } from 'redis';
-import { AppError } from '../../libraries/error/errorObject.js';
+import { NetworkAppError } from '../../libraries/error/errorObject.js';
 
 // @todo - add environment specific addresses
 const dbClient = createClient();
 
 // Event Handles
 dbClient.on('error', (error: Error) => {
-  throw new AppError('Uncaught database error:', error.message, false);
+  throw new Error();
 });
 
 await dbClient.connect();
