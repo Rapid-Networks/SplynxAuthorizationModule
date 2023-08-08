@@ -22,14 +22,14 @@ enum HttpCode {
  */
 export class AppError extends Error {
   public readonly name: string;
-  public readonly httpCode: HttpCode;
+  public readonly httpCode?: HttpCode;
   public readonly isOperational: boolean;
 
   constructor(
     name: string,
-    httpCode: HttpCode,
     description: string,
     isOperational: boolean,
+    httpCode?: HttpCode,
   ) {
     super(description);
     /*

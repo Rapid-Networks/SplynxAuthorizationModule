@@ -10,7 +10,7 @@ export const config = convict({
   },
   ip: {
     doc: 'Binding IP address',
-    format: 'ipaddress',
+    format: '*',
     default: '127.0.0.1',
     env: 'IP_ADDRESS',
   },
@@ -20,6 +20,43 @@ export const config = convict({
     default: 5000,
     env: 'PORT',
     arg: 'port',
+  },
+  splynx: {
+    url: {
+      doc: 'Splynx host url',
+      format: '*',
+      default: '',
+      env: 'SPLYNX_URL',
+    },
+    key: {
+      doc: 'Splynx API Key',
+      format: String,
+      default: '',
+      env: 'SPLYNX_API_KEY',
+    },
+    secret: {
+      doc: 'Splynx API Secret',
+      format: String,
+      default: '',
+      env: 'SPLYNX_API_SECRET',
+    },
+  },
+  db: {
+    host: {
+      doc: 'Database host address',
+      format: '*',
+      default: 'http://localhost/',
+    },
+    port: {
+      doc: 'Database port',
+      format: 'port',
+      default: '6379',
+    },
+    name: {
+      doc: 'Database name',
+      format: String,
+      default: 'Redis Cache',
+    },
   },
 });
 
