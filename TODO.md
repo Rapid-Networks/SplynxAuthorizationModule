@@ -1,3 +1,3 @@
 # Things to work on:
 
-[] - Implement a testing environment
+[ ] - Implement a testing environment
