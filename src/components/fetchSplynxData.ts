@@ -2,6 +2,11 @@ import { createHmac } from 'node:crypto';
 import fetch from 'node-fetch';
 import dbClient from './database.js';
 import { fastify } from './server.js';
+import config from '../libraries/environment.js';
+
+const SPLYNX_API_KEY = config.get('splynx.key');
+const SPLYNX_API_SECRET = config.get('splynx.secret');
+const SPLYNX_URL = `${config.get('splynx.url')}/auth/tokens`;
 
 type AuthenticationToken = {
   access_token: string;
@@ -12,14 +17,12 @@ type AuthenticationToken = {
 };
 /**
  * Generates hashed signature using API key and secret, for use in authentication token generation. These tokens have a lifetime of 30 min
- * @param api_key Splynx generated API key
- * @param api_secret Splynx generated API key secret, used for private key cryptography
  * @returns Uppercase encrypted signature string used in generation of authentication tokens
  */
-const generateSignature = (api_key: string, api_secret: string) => {
+const generateSignature = () => {
   const nonce = Math.floor(new Date().getTime() / 1000);
-  const secret = `${nonce}${api_key}`;
-  const hmac = createHmac('sha256', api_secret)
+  const secret = `${nonce}${SPLYNX_API_KEY}`;
+  const hmac = createHmac('sha256', SPLYNX_API_SECRET)
     .update(secret)
     .digest('hex')
     .toUpperCase();
@@ -32,25 +35,18 @@ const generateSignature = (api_key: string, api_secret: string) => {
 /**
  * Make a POST request to the Splynx URL to generate a new authentication token.
  * Used as a helper function with the storage function
- * @param api_key Splynx API Key
- * @param api_secret Splynx API Secret
- * @param url Splynx token URL
  * @returns the authentication token data, with a TTL of 30min
  */
-const fetchSplynxData = async (
-  api_key: string,
-  api_secret: string,
-  url: string,
-): Promise<AuthenticationToken> => {
-  const signature = generateSignature(api_key, api_secret);
-  const response = await fetch(url, {
+const fetchSplynxData = async (): Promise<AuthenticationToken> => {
+  const signature = generateSignature();
+  const response = await fetch(SPLYNX_URL, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       auth_type: 'api_key',
-      key: api_key,
+      key: SPLYNX_API_KEY,
       signature: signature.signature,
       nonce: signature.signature_nonce,
     }),
@@ -60,16 +56,10 @@ const fetchSplynxData = async (
 };
 /**
  * Request a splynx token and store the values and generated header in the database.
- * @param api_key Splynx API Key
- * @param api_secret Splynx API Secret
  * @param url Splynx token URL
  */
-async function generateNewToken(
-  api_key: string,
-  api_secret: string,
-  url: string,
-): Promise<void> {
-  const data = await fetchSplynxData(api_key, api_secret, url);
+async function generateNewToken(): Promise<void> {
+  const data = await fetchSplynxData();
   const header = `Splynx-EA (access_token=${data.access_token})`;
 
   await dbClient

@@ -64,11 +64,6 @@ const config = convict({
       default: '6379',
       env: 'dB_PORT',
     },
-    name: {
-      doc: 'Database name',
-      format: String,
-      default: 'Redis Cache',
-    },
   },
 });
 
