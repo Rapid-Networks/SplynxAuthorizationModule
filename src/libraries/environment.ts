@@ -70,6 +70,9 @@ const config = convict({
 // Load config
 try {
   const env = config.get('env');
+  if (env === 'production') {
+    config.loadFile('./opt/config/env.json');
+  }
   config.loadFile(`./config/${env}.json`);
 
   console.log(`Service starting in ${env} mode.`);
