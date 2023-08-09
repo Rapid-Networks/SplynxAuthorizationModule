@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
-import { config } from '../../libraries/env/convict.js';
-import dbClient from '../db/redis.js';
+import config from '../libraries/environment.js';
+import dbClient from './database.js';
 
 // Logger configuration for current environment:
 const loggerOptions: Record<string, any> = {
@@ -26,13 +26,13 @@ export const fastify = Fastify({
   logger: loggerOptions[config.get('env')] ?? true,
 });
 
-// Routes
 /**
- * Base request to route, returns
+ * Base request to route, returns latest header value
  */
 fastify.get('/', async (_request, reply) => {
-  reply.send('latest splynx header').code(200);
+  reply.send(await dbClient.get('header:latest')).code(200);
 });
+
 fastify.get('/authentication', async (_request, reply) => {
   // need special logger options for requests
   reply.send('latest splynx header').code(200);
@@ -52,7 +52,7 @@ fastify.get('/logs', async (_request, reply) => {
 
 export function startServer(): void {
   // running server
-  fastify.listen({ port: config.get('port') }, (error, _address) => {
+  fastify.listen({ port: config.get('server.port') }, (error, _address) => {
     if (error) throw new Error();
   });
 }
