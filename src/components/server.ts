@@ -32,23 +32,29 @@ export const fastify = Fastify({
  * Base request to route, returns latest header value
  */
 fastify.get('/', async (_request, reply) => {
-  reply.send(await dbClient.get('header:latest')).code(200);
+  const header = await dbClient.get('header:latest');
+  if (header === null) {
+    throw new AppError('APP_ERROR', 'No header value found', new Error());
+  }
+  reply.send(header).code(200);
 });
 /**
  * Return full token from database, without permissions
  */
 fastify.get('/token', async (_request, reply) => {
+  const data = await dbClient
+    .multi()
+    .hGet('token:latest', 'access_token')
+    .hGet('token:latest', 'refresh_token')
+    .hGet('token:latest', 'access_expiry')
+    .hGet('token:latest', 'refresh_expiry')
+    .exec();
+
   const tokenWithoutPermissions = {
-    access_token: await dbClient.hGet('token:latest', 'access_token'),
-    refresh_token: await dbClient.hGet('token:latest', 'refresh_token'),
-    access_token_expiration: await dbClient.hGet(
-      'token:latest',
-      'access_expiry',
-    ),
-    refresh_token_expiration: await dbClient.hGet(
-      'token:latest',
-      'refresh_expiry',
-    ),
+    access_token: data[0],
+    refresh_token: data[1],
+    access_token_expiration: data[2],
+    refresh_token_expiration: data[3],
   };
 
   reply.send(tokenWithoutPermissions).code(200);
