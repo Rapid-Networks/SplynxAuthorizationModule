@@ -9,7 +9,7 @@ Please feel free to mock me in the discussion tab should I not follow my own sug
 
 - `const`/`let` keyword and in `UPPER_SNAKE_CASE`
 
-  _example:_
+_example:_
 
 ```TypeScript
  let MUTABLE_GLOBAL = "mutable value";
