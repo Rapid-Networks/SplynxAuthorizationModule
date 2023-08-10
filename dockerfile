@@ -13,7 +13,7 @@ RUN make install
 
 # S.A.M setup
 WORKDIR /opt
-RUN mkdir config && mkdir logs && touch 
+RUN mkdir config && mkdir logs && touch log
 COPY environment.json /opt/config
 RUN git clone https://github.com/Rapid-Networks/Splynx_Authentication.git
 
