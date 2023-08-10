@@ -11,19 +11,29 @@
 This is a microservice container built for ongoing projects involving our (at time of writing) ISP billing software: [Splynx][Splynx home].
 This service uses the [v2][Splynx API Doc] API spec for communicating with the Splynx API
 
-## Building
+## Index :scroll:
+
+1. [Building](#building-nut_and_bolt)
+2. [Production](#production-briefcase)
+3. [Development](#development-desktop_computer)
+
+   - [Database](#database)
+
+4. [Testing] - _work in progress_
+
+## Building :nut_and_bolt:
 
 ### Ready the environment:
 
 1. Create a file in the root directory named `environment.json`, and add all the environment variables as required in the environment.ts [schema][Convict schema].
 
-## Production
+## Production :briefcase:
 
 In production mode, the service will load the environment variables from the container directory `./opt/sam/config/environment.json` and will throw an `INITIALIZATION_ERROR` should the config not be present.[^production_env]
 
 The service will pipe all logs to a compressed file found in `./opt/sam/logs`. Hitting the `/logs` endpoint will return the full log stream for further processing.
 
-## Development
+## Development :desktop_computer:
 
 In development mode, the service will load the environment variables in the current development directory, in `./config/{environment}.json` and will throw an `INITIALIZATION_ERROR` should the config not be present or not named after the environment it is loaded in.
 
@@ -33,9 +43,11 @@ In development the service assumes a redis stack docker container is running on 
 
 #### _Quickstart:_
 
-> `docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest`
+```
+docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+```
 
-You can read more on their official documentation [here][Redis-stack docker install]
+> You can read more on their official documentation [here][Redis-stack docker install]
 
 [^production_env]: This directory should be present within the docker image.
 
