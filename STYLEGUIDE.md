@@ -2,32 +2,47 @@
 
 > law for thee but not for me
 
-- Global variables:
-  `const`/`let` keyword and `UPPER_SNAKE_CASE`
-  _example:_
-  ```
-   let MUTABLE_GLOBAL = "mutable value";
-   const GLOBAL_CONSTANT = "immutable value";
-   const CONFIG = {
-      key: "value",
-   };
-  ```
-- Class names:
-  `UpperCamelCase`
-  _example:_
-  `class SomeClassExample {}`
+While this is by no means concrete, I would like to keep this here for reference.
+Please feel free to mock me in the discussion tab should I not follow my own suggestions.
 
-- Static Class properties:
-  `UPPER_SNAKE_CASE`
-  _example:_
-  `static STATIC_PROPERTY = "value";`
+## Global variables:
 
-- Functions:
-  `lowerCamelCase`
-  _example:_
-  `function doSomething() {}`
+- `const`/`let` keyword and in `UPPER_SNAKE_CASE`
 
-- Scoped variable names:
-  `lowerCamelCase`
   _example:_
-  `const someConstExample = "immutable value";`
+
+```TypeScript
+ let MUTABLE_GLOBAL = "mutable value";
+ const GLOBAL_CONSTANT = "immutable value";
+ const CONFIG = {
+    key: "value",
+ };
+```
+
+## Class names:
+
+- `UpperCamelCase`
+- for **Static Class properties** we revert to `UPPER_SNAKE_CASE`
+
+_example:_
+
+```TypeScript
+class SomeClassExample {
+  static STATIC_PROPERTY = "value";
+}`
+
+```
+
+## Functions and Scoped variable names:
+
+- `lowerCamelCase`
+
+  _example:_
+
+```TypeScript
+function doSomething() {
+  const someConstExample = "immutable value";
+}
+```
+
+There is a prettier config found [here](#) // to be implemented
