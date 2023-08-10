@@ -37,7 +37,7 @@ class SomeClassExample {
 
 - `lowerCamelCase`
 
-  _example:_
+_example:_
 
 ```TypeScript
 function doSomething() {
