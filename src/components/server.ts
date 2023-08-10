@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import config from '../libraries/environment.js';
 import dbClient from './database.js';
 import { AppError } from '../libraries/errors.js';
+import updateSplynxToken from './updatesplynxData.js';
 
 // Logger configuration for current environment:
 const loggerOptions: Record<string, any> = {
@@ -51,6 +52,16 @@ fastify.get('/token', async (_request, reply) => {
   };
 
   reply.send(tokenWithoutPermissions).code(200);
+});
+/**
+ * Update token database
+ */
+fastify.post('/token', async (_request, reply) => {
+  const refreshToken = await dbClient.hGet('token:latest', 'refresh_token');
+  if (refreshToken === undefined) {
+    throw new AppError('APP_ERROR', 'Refresh token not found', new Error());
+  }
+  reply.send(await updateSplynxToken(refreshToken)).code(201);
 });
 /**
  * Return full token from database, including permissions

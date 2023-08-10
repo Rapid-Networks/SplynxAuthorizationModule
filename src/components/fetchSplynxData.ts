@@ -8,7 +8,7 @@ const SPLYNX_API_KEY = config.get('splynx.key');
 const SPLYNX_API_SECRET = config.get('splynx.secret');
 const SPLYNX_URL = `${config.get('splynx.url')}/auth/tokens`;
 
-type AuthenticationToken = {
+export type AuthenticationToken = {
   access_token: string;
   refresh_token: string;
   access_token_expiration: number;
