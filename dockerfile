@@ -19,13 +19,16 @@ RUN git clone https://github.com/Rapid-Networks/Splynx_Authentication.git
 
 WORKDIR /opt/Splynx_Authentication
 RUN yarn install --frozen-lockfile
+RUN yarn --v
 RUN yarn run build
+
+WORKDIR /opt/Splynx_Authentication/build
+CMD [ "redis-server"] ["node index.js --env production"]
 
 
 # Cleanup
 RUN rm -rf /builds
 # Start DB instance 
-CMD [ "redis-server" ]
 
 
 
