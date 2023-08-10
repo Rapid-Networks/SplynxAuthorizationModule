@@ -31,8 +31,10 @@ In development mode, the service will load the environment variables in the curr
 
 In development the service assumes a redis stack docker container is running on its default mappings.
 
-_Quickstart:_
-`docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest`
+#### _Quickstart:_
+
+> `docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest`
+
 You can read more on their official documentation [here][Redis-stack docker install]
 
 [^production_env]: This directory should be present within the docker image.
