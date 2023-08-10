@@ -1,4 +1,4 @@
-FROM 18.17.0-alpine3.17 AS stage
+FROM node:18.17.0-alpine3.17
 
 # SETUP ENV
 RUN apk add --no-cache git && mkdir -p /var/log/sam
