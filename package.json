@@ -20,7 +20,7 @@
   "scripts": {
     "compile": "yarn tsc --watch",
     "dev": "nodemon node dist/index.js",
-    "build": "yarn tsc --outdir ./build && yarn eslint /build/**/*.js"
+    "build": "yarn tsc --outdir ./build"
   },
   "config": {},
   "dependencies": {

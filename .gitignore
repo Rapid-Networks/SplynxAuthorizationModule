@@ -135,3 +135,4 @@ dist
 /build
 
 environment.json
+bin
