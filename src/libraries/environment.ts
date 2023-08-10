@@ -72,8 +72,9 @@ try {
   const env = config.get('env');
   if (env === 'production') {
     config.loadFile('/opt/config/environment.json');
+  } else {
+    config.loadFile(`./config/${env}.json`);
   }
-  config.loadFile(`./config/${env}.json`);
 
   console.log(`Service starting in ${env} mode.`);
 } catch (error) {
