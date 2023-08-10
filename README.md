@@ -6,20 +6,38 @@
 
 ## About
 
-> Wow, I am really getting tired of trying to implement the authentication for Splynx everytime I start a new project. - me
+> Wow, I am really getting tired of trying to implement the authentication for Splynx everytime I start a new project.
+
+This is a microservice container built for ongoing projects involving our (at time of writing) ISP billing software: [Splynx][Splynx home].
+This service uses the [v2][Splynx API Doc] API spec for communicating with the Splynx API
 
 ## Building
 
 ### Ready the environment:
 
-1. Create a file in the root directory named `environment.json`, and add all the environment variables as stated in the environment.ts [schema](https://github.com/Rapid-Networks/Splynx_Authentication/blob/main/src/libraries/environment.ts).
+1. Create a file in the root directory named `environment.json`, and add all the environment variables as required in the environment.ts [schema][Convict schema].
 
 ## Production
 
-In production mode, the service will load the environment variables from the container directory `./opt/config/environment.json` and will throw an `INITIALIZATION_ERROR` should the config not be present.[^production_env]
+In production mode, the service will load the environment variables from the container directory `./opt/sam/config/environment.json` and will throw an `INITIALIZATION_ERROR` should the config not be present.[^production_env]
+
+The service will pipe all logs to a compressed file found in `./opt/sam/logs`. Hitting the `/logs` endpoint will return the full log stream for further processing.
 
 ## Development
 
 In development mode, the service will load the environment variables in the current development directory, in `./config/{environment}.json` and will throw an `INITIALIZATION_ERROR` should the config not be present or not named after the environment it is loaded in.
 
+### Database
+
+In development the service assumes a redis stack docker container is running on its default mappings.
+
+_Quickstart:_
+`docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest`
+You can read more on their official documentation [here][Redis-stack docker install]
+
 [^production_env]: This directory should be present within the docker image.
+
+[Redis-stack docker install]: https://redis.io/docs/getting-started/install-stack/docker/
+[Convict schema]: https://github.com/Rapid-Networks/Splynx_Authentication/blob/main/src/libraries/environment.ts
+[Splynx home]: https://splynx.com/
+[Splynx API Doc]: https://splynx.docs.apiary.io/
