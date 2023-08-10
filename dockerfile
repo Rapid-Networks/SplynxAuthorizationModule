@@ -34,7 +34,6 @@ RUN chown sam:sam /opt/sam && chown sam:sam /opt/redis
 
 WORKDIR /opt/sam
 RUN yarn install --production --frozen-lockfile
-RUN yarn --v
 
-CMD [ "node", "/opt/sam/index.js", "--env production"  ]
+CMD [ "node", "/opt/sam/index.js", "--env", " production"  ]
 
