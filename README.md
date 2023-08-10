@@ -39,7 +39,7 @@ In development mode, the service will load the environment variables in the curr
 
 ### Database
 
-In development the service assumes a redis stack docker container is running on its default mappings. This allows you to view the database with your browser of choice with redInsight on `http://localhost:8001`.
+In development the service assumes a redis stack docker container is running on its default mappings. This allows you to view the database with your browser of choice with redInsight on [`http://localhost:8001`](http://localhost:8001).
 
 #### _Quickstart:_
 
