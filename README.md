@@ -13,19 +13,18 @@ This service uses the [v2][Splynx API Doc] API spec for communicating with the S
 
 ## Index :scroll:
 
-1. [Building](#building-nut_and_bolt)
+1. [Usage](#usage-rocket)
 2. [Production](#production-briefcase)
 3. [Development](#development-desktop_computer)
 
    - [Database](#database)
 
 4. [Testing](#testing-ticket) - _work in progress_
+5. [Building](#building-nut_and_bolt)
 
-## Building :nut_and_bolt:
+## Usage :rocket:
 
-### Ready the environment:
-
-1. Create a file in the root project directory named `environment.json`, and add all the environment variables as required in the environment.ts [schema][Convict schema].
+Still in development
 
 ## Production :briefcase:
 
@@ -58,6 +57,12 @@ docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:lat
 `--env testing`
 
 This section is still very much a work in progress.
+
+## Building :nut_and_bolt:
+
+### Ready the environment:
+
+1. Create a file in the root project directory named `environment.json`, and add all the environment variables as required in the environment.ts [schema][Convict schema].
 
 [^production_env]: This directory should be present within the docker image.
 
