@@ -20,7 +20,7 @@ const loggerOptions: Record<string, any> = {
   production: {
     name: 'production',
     level: 'info',
-    file: '/opt/logs/',
+    file: '/opt/logs/sam',
   },
   testing: false,
 };
