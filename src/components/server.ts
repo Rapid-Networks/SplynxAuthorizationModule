@@ -20,7 +20,7 @@ const loggerOptions: Record<string, any> = {
     name: 'production',
     level: 'info',
   },
-  test: false,
+  testing: false,
 };
 
 export const fastify = Fastify({

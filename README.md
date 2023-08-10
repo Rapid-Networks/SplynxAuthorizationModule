@@ -37,6 +37,8 @@ The service will pipe all logs to a compressed file found in `./opt/sam/logs`. H
 
 ## Development :desktop_computer:
 
+`--env development`
+
 In development mode, the service will load the environment variables in the current development directory, in `./config/{environment}.json` and will throw an `INITIALIZATION_ERROR` should the config not be present or not named after the environment it is loaded in.
 
 ### Database
@@ -52,6 +54,8 @@ docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:lat
 > You can read more on their official documentation [here][Redis-stack docker install]
 
 ## Testing :ticket:
+
+`--env testing`
 
 This section is still very much a work in progress.
 

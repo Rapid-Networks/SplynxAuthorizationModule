@@ -4,7 +4,7 @@ import { AppError } from './errors.js';
 const config = convict({
   env: {
     doc: 'Application environment',
-    format: ['production', 'development', 'test'],
+    format: ['production', 'development', 'testing'],
     default: 'development',
     env: 'NODE_ENV',
     arg: 'env',
@@ -71,7 +71,7 @@ const config = convict({
 try {
   const env = config.get('env');
   if (env === 'production') {
-    config.loadFile('./opt/config/env.json');
+    config.loadFile('./opt/sam/config/environment.json');
   }
   config.loadFile(`./config/${env}.json`);
 
