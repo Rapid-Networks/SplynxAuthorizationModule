@@ -13,9 +13,8 @@ RUN make install
 
 # S.A.M setup
 WORKDIR /opt
-RUN mkdir config && mkdir logs
+RUN mkdir config && mkdir logs && touch 
 COPY environment.json /opt/config
-
 RUN git clone https://github.com/Rapid-Networks/Splynx_Authentication.git
 
 WORKDIR /opt/Splynx_Authentication
@@ -24,7 +23,7 @@ RUN yarn --v
 RUN yarn run build
 
 WORKDIR /opt/Splynx_Authentication/build
-CMD [ "redis-server"] ["node index.js --env production"]
+CMD [ "redis-server"], ["node index.js --env production"]
 
 
 # Cleanup
