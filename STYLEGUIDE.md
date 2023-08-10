@@ -33,7 +33,7 @@ class SomeClassExample {
 
 ```
 
-## Functions and Scoped variable names:
+## Functions and scoped variable names:
 
 - `lowerCamelCase`
 
