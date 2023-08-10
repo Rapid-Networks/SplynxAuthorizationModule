@@ -20,6 +20,7 @@ const loggerOptions: Record<string, any> = {
   production: {
     name: 'production',
     level: 'info',
+    file: '/var/logs/sam/',
   },
   testing: false,
 };
@@ -102,7 +103,7 @@ fastify.get('/permissions', async (_request, reply) => {
 });
 // @TODO - implement log dumping and streaming
 fastify.get('/logs', async (_request, reply) => {
-  reply.send('logs endpoint').code(200);
+  reply.send('logs endpoint').code(404);
 });
 
 export function startServer(): void {

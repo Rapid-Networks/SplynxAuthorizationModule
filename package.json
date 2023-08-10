@@ -19,14 +19,14 @@
   },
   "scripts": {
     "compile": "yarn tsc --watch",
-    "dev": "nodemon node dist/index.js"
+    "dev": "nodemon node dist/index.js",
+    "build": "yarn tsc --outdir ./build && yarn eslint /build/**/*.js"
   },
   "config": {},
   "dependencies": {
     "convict": "6.2.4",
     "fastify": "4.21.0",
     "node-fetch": "3.3.2",
-    "pino": "8.15.0",
     "redis": "4.6.7"
   },
   "devDependencies": {
@@ -35,7 +35,6 @@
     "@typescript-eslint/eslint-plugin": "6.2.1",
     "@typescript-eslint/parser": "6.2.1",
     "eslint": "8.46.0",
-    "eslint-config-prettier": "9.0.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.7.1",
     "nodemon": "3.0.1",
