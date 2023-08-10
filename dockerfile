@@ -16,6 +16,7 @@ WORKDIR /opt
 RUN mkdir config && mkdir logs
 COPY environment.json /opt/config
 RUN yarn --v
+RUN yarn --v
 RUN git clone https://github.com/Rapid-Networks/Splynx_Authentication.git
 
 WORKDIR /opt/Splynx_Authentication

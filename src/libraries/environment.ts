@@ -71,7 +71,7 @@ const config = convict({
 try {
   const env = config.get('env');
   if (env === 'production') {
-    config.loadFile('../config/environment.json');
+    config.loadFile('/opt/config/environment.json');
   }
   config.loadFile(`./config/${env}.json`);
 
