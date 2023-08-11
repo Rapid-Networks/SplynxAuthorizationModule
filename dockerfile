@@ -21,11 +21,11 @@ RUN mkdir /opt/redis && mkdir /opt/sam
 RUN mkdir /opt/sam/config && mkdir /opt/sam/logs
 RUN touch /opt/sam/logs/prod
 # Imports
-COPY --from=build /redis/src/redis-server /opt/redis/
-COPY --from=build /redis/src/redis-cli /opt/redis/
+COPY --from=build /redis/src/redis-server /usr/local/bin
+COPY --from=build /redis/src/redis-cli /usr/local/bin
 COPY --from=stage /build/build /opt/sam/
 COPY --from=stage /build/package.json /opt/sam
-
+COPY ./docker-entrypoint.sh /usr/local/bin
 COPY ./environment.json /opt/sam/config/environment.json
 
 RUN addgroup -S sam
@@ -35,5 +35,9 @@ RUN chown sam:sam /opt/sam && chown sam:sam /opt/redis
 WORKDIR /opt/sam
 RUN yarn install --production --frozen-lockfile
 
-CMD [ "node", "/opt/sam/index.js", "--env", " production"  ]
+EXPOSE 6379
+EXPOSE 3000
+
+ENTRYPOINT [ "docker-entrypoint.sh" ]
+CMD [ "node", "/opt/sam/index.js", "--env", "production"  ]
 

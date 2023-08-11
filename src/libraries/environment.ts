@@ -60,9 +60,9 @@ const config = convict({
     },
     port: {
       doc: 'Database port',
-      format: 'port',
+      format: '*',
       default: '6379',
-      env: 'dB_PORT',
+      env: 'DB_PORT',
     },
   },
 });
