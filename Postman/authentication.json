@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "1fe829ae-4ba1-4a33-8208-fac7d73fb33a",
+		"name": "Auth",
+		"description": "Authentication methods with Splynx v2 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication Tokens",
+			"item": [
+				{
+					"name": "Generate Access Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "399a3fda-f291-433a-a9fd-c9e8bcf04fa4",
+								"exec": [
+									"// Generate signature and set sig and nonce env variables before token generation\r",
+									"const key = pm.environment.get('API_KEY')\r",
+									"const secret = pm.environment.get(\"API_SECRET\")\r",
+									"const nonce = Math.floor(new Date().getTime() / 1000)\r",
+									"\r",
+									"const message = `${nonce}${key}`\r",
+									"\r",
+									"pm.environment.set('nonce', nonce)\r",
+									"\r",
+									"const createHmacString = (secretKey, messagetoEncrypt) => {\r",
+									"    const key = CryptoJS.enc.Utf8.parse(secret)\r",
+									"    const timestamp = CryptoJS.enc.Utf8.parse(message)\r",
+									"    const hmac = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(timestamp, key))\r",
+									"\r",
+									"    return hmac;\r",
+									"}\r",
+									"\r",
+									"const signature = createHmacString(secret, message).toUpperCase();\r",
+									"\r",
+									"pm.environment.set('signature', signature)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c0daa12-c880-4a05-a476-2e4ebc014122",
+								"exec": [
+									"// Set env variable for other requests",
+									"let jsonData = JSON.parse(responseBody)",
+									"pm.environment.set('authToken', jsonData.access_token)",
+									"pm.collectionVariables.set('CURRENT_ACCESS_TOKEN', jsonData.access_token)",
+									"pm.collectionVariables.set('CURRENT_REFRESH_TOKEN', jsonData.refresh_token)",
+									"",
+									"// Tests",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "3e362ca4-7f84-4536-a896-eb711e401b89",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"connection": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auth_type\": \"api_key\",\r\n    \"key\": \"{{API_KEY}}\",\r\n    \"signature\": \"{{signature}}\",\r\n    \"nonce\": \"{{nonce}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_BASE_URL}}/auth/tokens",
+						"description": "Generate new access token.\n\n## Return types\n\n``` typescript\n{\n  access_token: string,\n  refresh_token: string,\n  access_token_expiration: number,\n  refresh_token_expiration: number,\n  permissions: object\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Renew Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe62e172-ad30-49d0-8687-3ebeff0f6b07",
+								"exec": [
+									"// Set collection variables\r",
+									"let jsonData = JSON.parse(responseBody)\r",
+									"pm.environment.set('authToken', jsonData.access_token)\r",
+									"pm.collectionVariables.set('CURRENT_ACCESS_TOKEN', jsonData.access_token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "5c34ef89-1b50-44ce-9879-344a8eab8915",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/tokens/{{CURRENT_REFRESH_TOKEN}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Access Token",
+					"_postman_id": "eeb096a8-37e0-49de-9d4a-8adf7cd4f6b5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/tokens/{{CURRENT_REFRESH_TOKEN}}",
+						"description": "Delete existing token.\n\n\\-- WORK IN PROGRESS"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "eb12886f-30ed-4e10-8308-3099ca2b2cf4",
+			"description": "## Token types\n\n`admin`\n    \n\n- Authenticate like a administrator\n    \n`customer`\n    \n\n- Authenticate like a customer\n    \n`api_key`\n    \n\n- Authenticate by API key\n    \n`session`\n    \n\n- Authenticate by user session id\n    \n\n### Required fields by token type:\n\n|  | _admin_ | _customer_ | _api_key_ | _session_ |\n| --- | --- | --- | --- | --- |\n| **login** | x | x |  |  |\n| **password** | x | x |  |  |\n| **key** |  |  | x |  |\n| **signature** |  |  | x |  |\n| **nonce** |  |  | x |  |\n| **session_id** |  |  |  | x |\n| **code** | x |  |  |  |\n| **fingerprint** | x |  |  |  |",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7e238274-9310-4519-a59b-a942bd291027",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd69a4e6-af2d-4671-a616-375941ca35cd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Trusted Devices",
+			"item": [
+				{
+					"name": "List All Trusted Devices",
+					"_postman_id": "bae47818-1737-44cb-babb-4005c6eac099",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/trusted-devices",
+						"description": "### Return types\n\n``` typescript\n[\n  {\n    id: number,\n    admin_id: number,\n    device_type: string,\n    os: string,\n    name: string,\n    finger_print_cookies: string,\n    device_info: object,\n    added_time: string\n  }\n]\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Trusted Device",
+					"_postman_id": "c3e15991-846e-4bb3-92e4-42e4daca6ad1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/trusted-devices",
+						"description": "**Creates a new Trusted device**\n\n> This functionality available only if two-factor authentication is enabled.  \nCan remind a user device after and during next login  \nCan pass stored fingerprint for login without two-factor code \n  \n\n- Only for Admin Authentication\n    \n\n### Return type\n\n``` typescript\n{\n  id: number,\n  fingerprint: string\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Trusted Device",
+					"_postman_id": "06775e82-6955-43b2-b345-f7338f9fc68c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/trusted-devices/{{TRUSTED_DEVICE_ID}}",
+						"description": "### Return Type\n\n``` Typescript\n{\n  id: number,\n  admin_id: number,\n  device_type: string,\n  os: string,\n  name: string,\n  finger_print_cookies: string,\n  device_info: object,\n  added_time: string\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Trusted Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f20dfb6-0e0f-4209-b651-aed0c449d9cd",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "0d8a7fcf-b050-494a-9420-a74638f5769a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/trusted-devices/{{TRUSTED_DEVICE_ID}}"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "e8593049-eeca-4979-b910-aa0fe74bebf4",
+			"auth": {
+				"type": "apikey",
+				"apikey": {
+					"value": "Splynx-EA (access_token={{authToken}})",
+					"key": "Authorization"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c38889f1-982a-48ec-b47b-3a2a60522d1e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "32b1c77d-8595-4eb4-818d-deb614802274",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "Create New Session",
+					"_postman_id": "86e0a4a7-368d-4493-b63b-f6a7a4d06d59",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{API_BASE_URL}}/auth/sessions"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "c8fc9701-0c37-41f3-8aca-cde215185c7c",
+			"auth": {
+				"type": "apikey",
+				"apikey": {
+					"value": "Splynx-EA (access_token={{authToken}})",
+					"key": "Authorization"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a92350ca-d571-457a-9595-ccf4942c67ca",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ee83ffba-381f-423a-bdeb-a93ed4c6e4e9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Two-Factor Authentication",
+			"item": [
+				{
+					"name": "Check Status",
+					"_postman_id": "b1f87fda-e097-4025-9d41-0c376066bb0e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"administrator\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_BASE_URL}}/auth/two-factor-status",
+						"description": "Check if two-factor authentication is enabled"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "66138bfa-9320-4265-8abd-1813ff67e498"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1993f836-dc65-47be-8b4c-8354ee1618ae",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "85c60910-a0ad-48b4-b6d4-baf9d5f776a9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "69e300b4-99e9-4a03-a412-93e927a090b6",
+			"key": "CURRENT_ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "67bdd580-6334-49c2-996a-8d53f2050dbb",
+			"key": "CURRENT_REFRESH_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "4ed21ee1-986b-43b4-aec1-fe78c79c8e96",
+			"key": "TRUSTED_DEVICE_ID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
