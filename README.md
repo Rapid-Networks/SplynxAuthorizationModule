@@ -14,17 +14,6 @@
 This module is built for ongoing projects involving our (at time of writing) ISP billing software: [Splynx][Splynx home].
 This service uses the [v2][Splynx API Doc] API spec for communicating with the Splynx API.
 
-## Index :scroll:
-
-1. [Usage](#usage-rocket)
-2. [Production](#production-briefcase)
-3. [Development](#development-desktop_computer)
-
-   - [Database](#database)
-
-4. [Testing](#testing-ticket) - _work in progress_
-5. [Building](#building-nut_and_bolt)
-
 ## Usage :rocket:
 
 Still in development
