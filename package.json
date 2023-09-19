@@ -1,6 +1,6 @@
 {
   "name": "splynx_auth_ms",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Authentication Microservice for working with splynx in all Rapid Networks Projects",
   "homepage": "https://github.com/Rapid-Networks/Splynx_Authentication#README",
   "bugs": {
@@ -18,27 +18,20 @@
     "url": "https://github.com/Rapid-Networks/Splynx_Authentication.git"
   },
   "scripts": {
-    "compile": "yarn tsc --watch",
-    "dev": "nodemon node dist/index.js",
-    "build": "yarn tsc --outdir ./build"
+    "compile": "yarn tsc && eslint ./dist"
   },
   "config": {},
   "dependencies": {
-    "convict": "6.2.4",
-    "fastify": "4.21.0",
-    "node-fetch": "3.3.2",
-    "redis": "4.6.7"
+    "node-fetch": "3.3.2"
   },
   "devDependencies": {
-    "@types/convict": "6.1.3",
     "@types/node": "20.4.8",
     "@typescript-eslint/eslint-plugin": "6.2.1",
     "@typescript-eslint/parser": "6.2.1",
+    "dotenv": "16.3.1",
     "eslint": "8.46.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.7.1",
-    "nodemon": "3.0.1",
-    "pino-pretty": "10.2.0",
     "prettier": "3.0.1",
     "typescript": "5.1.6"
   },
