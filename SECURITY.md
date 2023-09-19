@@ -4,10 +4,9 @@
 
 The security updates will be available for all listed versions below:
 _There is only one version at the moment_
-| Version | Supported          |
+| Version | Supported |
 | ------- | ------------------ |
-| 1.0.0   | :white_check_mark: |
-
+| 1.x | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
