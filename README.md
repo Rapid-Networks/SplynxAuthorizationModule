@@ -18,5 +18,7 @@ This service uses the [v2][Splynx API Doc] API spec for communicating with the S
 
 Still in development
 
+@ Todo add docs
+
 [Splynx home]: https://splynx.com/
 [Splynx API Doc]: https://splynx.docs.apiary.io/
