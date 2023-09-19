@@ -36,9 +36,6 @@
     "typescript": "5.1.6"
   },
   "type": "module",
-  "engines": {
-    "node": "18.17.0"
-  },
   "publishConfig": {
     "@rapidnetworks:registry": "https://npm.pkg.github.com"
   }
