@@ -1,6 +1,8 @@
 import { createHmac } from 'node:crypto';
 import type { AuthenticationToken } from './types.js';
 
+import 'dotenv/config';
+
 const SPLYNX_API_KEY = process.env.SPLYNX_API_KEY as string;
 const SPLYNX_API_SECRET = process.env.SPLYNX_API_SECRET as string;
 const SPLYNX_URL = `${process.env.SPLYNX_BASE_URL}/auth/tokens`;
@@ -26,7 +28,7 @@ export default class Token implements AuthenticationToken {
   public refresh_token_expiration!: number;
   public permissions!: Record<string, Record<string, string>>;
 
-  public async create() {
+  public async create(): Promise<void> {
     const nonce = Math.floor(new Date().getTime() / 1000);
     const response = await fetch(SPLYNX_URL, {
       method: 'post',
@@ -50,7 +52,7 @@ export default class Token implements AuthenticationToken {
     this.permissions = data.permissions;
   }
 
-  public async refresh() {
+  public async refresh(): Promise<void> {
     const response = await fetch(`${SPLYNX_URL}/${this.refresh_token}`, {
       method: 'get',
       headers: {
@@ -67,7 +69,7 @@ export default class Token implements AuthenticationToken {
     this.permissions = data.permissions;
   }
 
-  public async delete() {
+  public async delete(): Promise<void> {
     await fetch(`${SPLYNX_URL}/${this.refresh_token}`, {
       method: 'delete',
       headers: {
