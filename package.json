@@ -1,5 +1,5 @@
 {
-  "name": "splynx_auth_ms",
+  "name": "@Rapid-Networks/Splynx_Authentication",
   "version": "1.1.0",
   "description": "Authentication Microservice for working with splynx in all Rapid Networks Projects",
   "homepage": "https://github.com/Rapid-Networks/Splynx_Authentication#README",
@@ -39,5 +39,8 @@
     "node": "18.17.0"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "publishConfig": {
+    "@Rapid-Networks:registry": "https://npm.pkg.github.com"
+  }
 }
