@@ -14,11 +14,11 @@ type AuthenticationToken = {
  */
 class AuthorizationToken implements AuthenticationToken {
   private url: string;
-  public access_token: string;
-  public refresh_token: string;
-  public access_token_expiration: number;
-  public refresh_token_expiration: number;
-  public permissions: Record<string, Record<string, string>>;
+  public readonly access_token: string;
+  public readonly refresh_token: string;
+  public readonly access_token_expiration: number;
+  public readonly refresh_token_expiration: number;
+  public readonly permissions: Record<string, Record<string, string>>;
 
   constructor(url: string, token: AuthenticationToken) {
     this.url = url;
@@ -143,6 +143,7 @@ export const adminToken = async (
       fingerprint: fingerprint,
     }),
   });
+  console.log(await response.json());
   return new AuthorizationToken(
     url,
     (await response.json()) as AuthenticationToken,
