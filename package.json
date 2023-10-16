@@ -37,6 +37,7 @@
   },
   "type": "module",
   "publishConfig": {
+    "access": "public",
     "@rapidnetworks:registry": "https://npm.pkg.github.com"
   }
 }
