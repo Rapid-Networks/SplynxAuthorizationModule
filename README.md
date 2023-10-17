@@ -15,8 +15,7 @@ This service uses the [v2][Splynx API Doc] API spec for communicating with the S
 ## Install :electric_plug:
 
 ```bash
-    npm i @rapidnetworks/sam
-    yarn add @rapidnetworks/sam -E
+npm i @rapidnetworks/sam
 ```
 
 _This module includes its own type definitions_
@@ -47,7 +46,7 @@ const token = customerToken(url: string, customer_login: string, customer_passwo
 ```typescript
 import { adminToken } from '@rapidnetworks/sam';
 
-const token = customerToken(url: string, admin_login: string, admin_password: string, 2fa_code?: string, 2fa_fingerprint?: string);
+const token = adminToken(url: string, admin_login: string, admin_password: string, 2fa_code?: string, 2fa_fingerprint?: string);
 ```
 
 ### 4. Session Token:
@@ -55,7 +54,7 @@ const token = customerToken(url: string, admin_login: string, admin_password: st
 ```typescript
 import { sessionToken } from '@rapidnetworks/sam';
 
-const token = customerToken(url: string, session_id: string);
+const token = sessionToken(url: string, session_id: string);
 ```
 
 All of these tokens are part of a base Authentication token class, allowing full access to the following methods:
