@@ -1,4 +1,4 @@
-# S.A.M - Splynx Authentication Module
+# S.A.M - Splynx Authorization Module
 
 [![https://nodei.co/npm/@rapidnetworks/sam.png?mini=true](https://nodei.co/npm/@rapidnetworks/sam.png?mini=true)](https://www.npmjs.com/package/@rapidnetworks/sam)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
