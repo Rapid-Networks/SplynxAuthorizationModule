@@ -5,7 +5,13 @@
 
 ---
 
-## About
+## Index :page_with_curl:
+
+* [About](https://github.com/Rapid-Networks/Splynx_Authentication/edit/main/README.md#about-)
+* [Installation](https://github.com/Rapid-Networks/Splynx_Authentication/edit/main/README.md#install-electric_plug)
+* [Usage](https://github.com/Rapid-Networks/Splynx_Authentication/edit/main/README.md#usage-rocket)
+
+## About 🔍
 
 > Wow, I am really getting tired of trying to implement the authentication for Splynx everytime I start a new project.
 
@@ -61,11 +67,11 @@ All of these tokens are part of a base Authentication token class, allowing full
 
 ### 1. `.refresh(): Promise<void>`
 
-    This method refreshes the token and updates the token object with the new `access_token` value
+This method refreshes the token and updates the token object with the new `access_token` value
 
 ### 2. `.delete(): Promise<void>`
 
-    This method invalidates the `access_token` value, blacklisting it for further use.
+This method invalidates the `access_token` value, blacklisting it for further use.
 
 The full token object has the following properties:
 
