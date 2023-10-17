@@ -1,6 +1,6 @@
 {
   "name": "@rapidnetworks/sam",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Authentication Microservice for working with splynx in all Rapid Networks Projects",
   "homepage": "https://github.com/Rapid-Networks/Splynx_Authentication#README",
   "bugs": {
@@ -9,13 +9,14 @@
   },
   "license": "GPL-3.0-only",
   "author": "Armin <armin@rapidnetworks.co.za>",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Rapid-Networks/Splynx_Authentication.git"
   },
   "scripts": {
-    "compile": "yarn tsc && eslint ./dist"
+    "prepublish": "tsc"
   },
   "config": {},
   "dependencies": {

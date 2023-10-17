@@ -9,6 +9,7 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "declaration": true,
     /* Type Checking */
     "strict": true,
     "skipLibCheck": true
