@@ -1,7 +1,7 @@
 # S.A.M - Splynx Authentication Microservice
 
+[![https://nodei.co/npm/@rapidnetworks/sam.png?mini=true](https://nodei.co/npm/@rapidnetworks/sam.png?mini=true)](https://www.npmjs.com/package/@rapidnetworks/sam)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![https://nodei.co/npm/@rapidnetworks/sam.png?downloads=true&downloadRank=true&stars=true&mini=true](https://nodei.co/npm/YOUR-MODULE-NAME.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/YOUR-MODULE-NAME)
 
 ---
 
@@ -12,7 +12,7 @@
 This module is built for ongoing projects involving our (at time of writing) ISP billing software: [Splynx][Splynx home].
 This service uses the [v2][Splynx API Doc] API spec for communicating with the Splynx API.
 
-## Install :electric_plug::
+## Install :electric_plug:
 
 ```bash
     npm i @rapidnetworks/sam
