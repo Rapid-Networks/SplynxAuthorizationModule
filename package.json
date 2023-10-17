@@ -1,6 +1,6 @@
 {
-  "name": "sam",
-  "version": "1.1.0",
+  "name": "@rapidnetworks/sam",
+  "version": "2.0.0",
   "description": "Authentication Microservice for working with splynx in all Rapid Networks Projects",
   "homepage": "https://github.com/Rapid-Networks/Splynx_Authentication#README",
   "bugs": {
@@ -32,5 +32,8 @@
     "prettier": "3.0.1",
     "typescript": "5.1.6"
   },
-  "type": "module"
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  }
 }
