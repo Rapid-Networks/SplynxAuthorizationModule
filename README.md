@@ -7,9 +7,9 @@
 
 ## Index :page_with_curl:
 
-* [About](https://github.com/Rapid-Networks/Splynx_Authentication/edit/main/README.md#about-)
-* [Installation](https://github.com/Rapid-Networks/Splynx_Authentication/edit/main/README.md#install-electric_plug)
-* [Usage](https://github.com/Rapid-Networks/Splynx_Authentication/edit/main/README.md#usage-rocket)
+* [About](https://github.com/Rapid-Networks/Splynx_Authentication#about-)
+* [Installation](https://github.com/Rapid-Networks/Splynx_Authentication#install-electric_plug)
+* [Usage](https://github.com/Rapid-Networks/Splynx_Authentication#usage-rocket)
 
 ## About 🔍
 
