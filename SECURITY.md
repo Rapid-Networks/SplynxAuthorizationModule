@@ -3,10 +3,10 @@
 ## Supported Versions
 
 The security updates will be available for all listed versions below:
-_There is only one version at the moment_
+**Of note:** v1.x is based on a non-working version, and will be disregarded.
 | Version | Supported |
 | ------- | ------------------ |
-| 1.x | :white_check_mark: |
+| 1.x | :x: |
 |2.x| :white_check_mark:|
 
 ## Reporting a Vulnerability
