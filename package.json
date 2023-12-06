@@ -1,27 +1,36 @@
 {
   "name": "@rapidnetworks/sam",
   "version": "2.0.2",
-  "description": "Authentication Microservice for working with splynx in all Rapid Networks Projects",
+  "packageManager": "yarn@4.0.2",
+  "type": "module",
+  "license": "GPL-3.0-only",
+  "description": "Authorization Microservice for working with splynx in all Rapid Networks Projects",
   "homepage": "https://github.com/Rapid-Networks/Splynx_Authentication#README",
   "bugs": {
     "url": "https://github.com/Rapid-Networks/Splynx_Authentication/issues",
     "email": "armin@rapidnetworks.co.za"
   },
-  "license": "GPL-3.0-only",
   "author": "Armin <armin@rapidnetworks.co.za>",
-  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Rapid-Networks/Splynx_Authentication.git"
   },
+  "os": [
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "./sources/index.js",
   "scripts": {
-    "prepublish": "tsc"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
-  "config": {},
   "dependencies": {
     "node-fetch": "3.3.2"
   },
+  "optionalDependencies": {},
   "devDependencies": {
     "@types/node": "20.4.8",
     "@typescript-eslint/eslint-plugin": "6.2.1",
@@ -30,10 +39,12 @@
     "eslint": "8.46.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.7.1",
+    "jest": "^29.7.0",
     "prettier": "3.0.1",
     "typescript": "5.1.6"
   },
-  "type": "module",
+  "peerDependencies": {},
+  "config": {},
   "publishConfig": {
     "access": "public"
   }
